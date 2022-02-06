@@ -1,10 +1,20 @@
-import styled from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 
 export const Container = styled.section`
-  font-family: 'Sora', sans-serif;
   margin-top: 100px;
 
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+
+  overflow: hidden;
+  overflow-y: none;
+  overflow-x: none;
+
   appearance: none;
+
+  padding: 0 16px;
 `
 
 export const Header = styled.header`
@@ -12,11 +22,11 @@ export const Header = styled.header`
 `;
 
 export const ContainerCalc = styled.div`
-  width: 644px;
-  /* max-width: 500px; */
-  height: 500px;
+  width: 100%;
+  max-width: 450px;
+  height: 475px;
   margin: 70px auto 0;
-  padding: 12px;
+  padding: 8px;
   background: #380b42 ;
 
   border-radius: 20px;
@@ -24,7 +34,7 @@ export const ContainerCalc = styled.div`
 `;
 
 
-export const Input = styled.div`
+export const Display = styled.div`
     margin: 8px auto;
     width: 95%;
     height: 60px;
@@ -51,12 +61,11 @@ export const SpanMemory = styled.span`
 `;
 
 export const Ul = styled.ul`
-  padding: 0 15px 0 20px; 
+  padding: 0 10px 0 15px; 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  grid-gap: 10px;
-  border: 0;
+  grid-gap: 5px;
 `;
 
 export const Button = styled.li`
@@ -80,7 +89,6 @@ export const Button = styled.li`
   }
 
   &:nth-child(19) {
-    /* grid-row: span 2; */
     grid-column: span 2;
   }
 
@@ -106,13 +114,12 @@ export const BtnCheck =  styled.button`
 `;
 
 export const Footer = styled.footer`
+margin-top: 16px;
+
 a {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  text-decoration: none;
-
   color: #000;
 
   img {

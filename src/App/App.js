@@ -1,5 +1,6 @@
 import React, {useState, useEffect, memo} from 'react'
-import {Ul, Container, SpanValue, SpanMemory, Input, Header, Footer, ContainerCalc} from './style/style'
+import {Ul, Container, SpanValue, SpanMemory, Display, Header, Footer, ContainerCalc } from './style/style';
+import GlobalStyle from './style/global'
 
 import Button from './Button'
 import commafy from './commafy';
@@ -50,9 +51,10 @@ function addDigit(e) {
   }
 
   if (e === '%') {
+    if (operator === null) return
+
     if (operator !== null) {
       setOperator(e)
-
       if (operator === '*') {
         if (number === 0) {
           return 
@@ -208,15 +210,17 @@ useEffect(() => {
 
  
   return (
+    <>
+      <GlobalStyle />
     <Container>
       <Header>
         <h1>Calculadora ReactJS</h1>
       </Header>
     <ContainerCalc>
-      <Input >
+      <Display >
         <SpanMemory>{memory} {operator}</SpanMemory>
         <SpanValue>{commafy(value)}</SpanValue>
-      </Input>
+      </Display>
       <Ul>
         <Button label="7" click={() => addDigit('7')} />
         <Button label="8" click={() => addDigit('8')} />
@@ -246,5 +250,6 @@ useEffect(() => {
       
     </Footer>
     </Container>
+    </>
   )
 }
