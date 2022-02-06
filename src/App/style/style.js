@@ -1,18 +1,28 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 644px;
-  height: 500px;
-  margin: 50px auto 0;
-  padding: 2px;
-  background: #673ab7 ;
+export const Container = styled.section`
+  font-family: 'Sora', sans-serif;
+  margin-top: 100px;
 
-  
-  border-radius: 10px;
-`;
+  appearance: none;
+`
 
 export const Header = styled.header`
+ text-align: center;
 `;
+
+export const ContainerCalc = styled.div`
+  width: 644px;
+  /* max-width: 500px; */
+  height: 500px;
+  margin: 70px auto 0;
+  padding: 12px;
+  background: #380b42 ;
+
+  border-radius: 20px;
+
+`;
+
 
 export const Input = styled.div`
     margin: 8px auto;
@@ -23,8 +33,9 @@ export const Input = styled.div`
     text-align: right;
     color: #fff;
     padding: 4px;
-    background: #7e57c2 ;
-    box-shadow: inset -1px -1px 4px 1px;
+    border-radius: 8px;
+    background: #7e57c2;
+
 
     display: flex;
     flex-direction: column;
@@ -53,9 +64,9 @@ export const Button = styled.li`
 
   list-style: none;
 
-  border-radius: 3px;
+  border-radius: 4px;
   color: #fff;
-  background-color: #5e35b1;
+  background-color: #a526c2;
   cursor: pointer;
   line-height: 60px;
   text-align: center;
@@ -65,7 +76,7 @@ export const Button = styled.li`
   }
 
   &:hover {
-    background: #651fff;
+    background: #cd68e4;
   }
 
   &:nth-child(19) {
@@ -93,6 +104,28 @@ export const BtnCheck =  styled.button`
     background: red;
   }
 `;
+
+export const Footer = styled.footer`
+a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
+  color: #000;
+
+  img {
+    width: 25px;
+    margin-left: 8px;
+  }
+
+  &:hover {
+    color: #9134b3;
+  }
+}
+
+`
 
 
 

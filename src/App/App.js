@@ -1,9 +1,10 @@
 import React, {useState, useEffect, memo} from 'react'
-import {Ul, Container, SpanValue, SpanMemory, Input} from './style/style'
+import {Ul, Container, SpanValue, SpanMemory, Input, Header, Footer, ContainerCalc} from './style/style'
 
 import Button from './Button'
 import commafy from './commafy';
 
+import git from '../assets/imgs/git.svg';
 
 export default function Calculator() {
 
@@ -13,6 +14,12 @@ const [operator, setOperator] = useState(null);
 
 function addDigit(e) {
   const number = parseFloat(value);
+
+  if (value === NaN || value === Infinity) {
+    setValue('0');
+    setMemory();
+    setOperator();
+  }
 
   if (e === 'AC') {
     setValue('0');
@@ -202,7 +209,11 @@ useEffect(() => {
  
   return (
     <Container>
-      <Input>
+      <Header>
+        <h1>Calculadora ReactJS</h1>
+      </Header>
+    <ContainerCalc>
+      <Input >
         <SpanMemory>{memory} {operator}</SpanMemory>
         <SpanValue>{commafy(value)}</SpanValue>
       </Input>
@@ -227,8 +238,13 @@ useEffect(() => {
         <Button label="C" click={() => addDigit('C')} />
         <Button label="AC" click={() => addDigit('AC')} />
         <Button label="=" click={() => addDigit('=')} />
-
       </Ul>
+    </ContainerCalc>
+    <Footer>
+      <a href="https://github.com/xXRetr0Xx-BR" target="_blank" ><p>xXRetr0Xx (FK)</p> <img src={git} alt=""  /></a>
+    
+      
+    </Footer>
     </Container>
   )
 }
