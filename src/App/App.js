@@ -179,13 +179,6 @@ useEffect(() => {
       setOperator(null);
       return;
     }
-
-  console.log({memory})
-  console.log({operator})
-  console.log({number})
-  console.log({value})
-  console.log({e})
-  console.log('-----') 
   
     if ((e.code === "NumpadAdd") || (e.code === "NumpadSubtract")|| (e.code === "NumpadMultiply") || (e.code === "NumpadDivide") || (e.keyCode === 53)) {
       addDigit(key)
