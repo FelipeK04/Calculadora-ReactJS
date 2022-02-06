@@ -7,17 +7,17 @@ import commafy from './commafy';
 
 export default function Calculator() {
 
-const [value, setValue] = useState("0");
+const [value, setValue] = useState('0');
 const [memory, setMemory] = useState(null);
 const [operator, setOperator] = useState(null);
 
 function addDigit(e) {
-  const num = parseFloat(value);
+  const number = parseFloat(value);
 
   if (e === 'AC') {
     setValue('0');
-    setMemory(null);
-    setOperator(null);
+    setMemory();
+    setOperator();
     return;
   }
 
@@ -25,39 +25,13 @@ function addDigit(e) {
     if (value.length >= 2) {
       setValue((value.slice(0, -1)))
     } else if (value.length <= 1) {
-      setValue('0')
+      setValue('0');
     }
     return
   }
 
   if (e === '±') {
-    setValue((num * -1).toString());
-    return
-  }
-
-  if (e === '%') {
-    let percent = (num / 100) * memory;
-    let increase = (memory * (num / 100 + 1));
-    let decrease = Math.round(memory * (1 - (num / 100 ))).toFixed(0);
-
-    if (operator !== null) {
-      if (operator === '*') {
-        setValue((percent).toString());
-        setMemory(null)
-        setOperator(null)
-      } else if (operator === '+') {
-        setValue((increase).toString())
-        setMemory(null)
-        setOperator(null)
-      } else if (operator === '/') {
-        setValue((decrease).toString())
-        setMemory(null)
-        setOperator(null)
-      }
-    } else {
-      setMemory(parseFloat(value))
-    }
-    
+    setValue((number * -1).toString());
     return
   }
 
@@ -68,94 +42,93 @@ function addDigit(e) {
     return;
   }
 
-  if (e === '+') {
+  if (e === '%') {
     if (operator !== null) {
-      if (operator === '+') {
-        setMemory(memory + parseFloat(value));
+      setOperator(e)
+
+      if (operator === '*') {
+        if (number === 0) {
+          return 
+        }
+        setValue(((number / 100) * memory).toString());
+        setMemory(null);
+        setOperator(null);
       } else if (operator === '-') {
-        setMemory(memory - parseFloat(value));
-      } else if (operator === '*') {
-        setMemory(memory * parseFloat(value));
+        if (number === 0) {
+          return 
+        }
+        setValue((Math.round(memory * (1 - (number / 100)))).toString());
+        setMemory(null);
+        setOperator(null);
+      } else if (operator === '+') {
+        if (number === 0) {
+          return 
+        }
+        setValue((memory * (number / 100 + 1)).toString());
+        setMemory(null);
+        setOperator(null)
       } else if (operator === '/') {
-        setMemory(memory / parseFloat(value));
+        if (number === 0) return;
+        setValue(((memory / number) * 100).toString());
+        setMemory(null);
+        setOperator(null);
       }
     } else {
-      setMemory(parseFloat(value));
+      setMemory(number)
     }
-    setValue('0');
-    setOperator('+')
-    return;
+
+    return
   }
 
-  if (e === '-') {
+  if ((e === '+') || (e === '-') || (e === '/') ||( e === '*')) {
     if (operator !== null) {
-      if (operator === "+") {
-        setMemory(memory + parseFloat(value));
-      } else if (operator === "−") {
-        setMemory(memory - parseFloat(value));
-      } else if (operator === "*") {
-        setMemory(memory * parseFloat(value));
-      } else if (operator === "/") {
-        setMemory(memory / parseFloat(value));
+      setOperator(e);
+      if (operator === '+') {
+        if (number === 0) {
+          return
+         }
+        setMemory(memory / number);
+
+      } else if (operator === '-') {
+        if (number === 0) {
+          return
+         }
+        setMemory(memory - number);  
+      } else if (operator === '/') {
+        if (number === 0) {
+         return
+        }
+        setMemory(memory / number);
+
+      } else if (operator === '*') {
+        if (number === 0) {
+          return
+         }
+        setMemory(memory * number);
+
       }
     } else {
-      setMemory(parseFloat(value));
+      setMemory(number);
     }
-    setValue("0");
-    setOperator("−");
-    return;
+    setOperator(e);
+    setValue('0')
+
+    return
   }
 
-  if (e === "*") {
-    if (operator !== null) {
-      if (operator === "+") {
-        setMemory(memory + parseFloat(value));
-      } else if (operator === "−") {
-        setMemory(memory - parseFloat(value));
-      } else if (operator === "*") {
-        setMemory(memory * parseFloat(value));
-      } else if (operator === "/") {
-        setMemory(memory / parseFloat(value));
-      }
-    } else {
-      setMemory(parseFloat(value));
-    }
-    setValue("0");
-    setOperator("*");
-    return;
-  }
-
-  if (e === "/") {
-    if (operator !== null) {
-      if (operator === "+") {
-        setMemory(memory + parseFloat(value));
-      } else if (operator === "−") {
-        setMemory(memory - parseFloat(value));
-      } else if (operator === "*") {
-        setMemory(memory * parseFloat(value));
-      } else if (operator === "/") {
-        setMemory(memory / parseFloat(value));
-      }
-    } else {
-      setMemory(parseFloat(value));
-    }
-    setValue("0");
-    setOperator("/");
-    return;
-  }
-
-  if (e === "=") {
+  if (e === '=') {
     if (!operator) return;
 
     if (operator === "+") {
-      setValue((memory + parseFloat(value)).toString());
-    } else if (operator === "−") {
-      setValue((memory - parseFloat(value)).toString());
+      setValue((memory + number).toString());
+    } else if (operator === "-") {
+      setValue((memory - number).toString());
     } else if (operator === "*") {
-      setValue((memory * parseFloat(value)).toString());
+      setValue((memory * number).toString());
     } else if (operator === "/") {
-      setValue((memory / parseFloat(value)).toString());
+      setValue((memory / number).toString());
     }
+
     setMemory(null);
     setOperator(null);
     return;
@@ -164,18 +137,20 @@ function addDigit(e) {
   if (value[value.length - 1] === ".") {
     setValue(value + e);
   } else {
-    setValue(parseFloat(num + e).toString());
+    setValue(parseFloat(number + e).toString());
   }
-};
+  
 
+}
 
 useEffect(() => {
   function handleKey(e) {
     let {key} = e;
+    let {} = e;
+    let number = parseFloat(value);
 
     if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-      addDigit(key)
-      
+      addDigit(key)    
     }
 
     if (key === 'Backspace') {
@@ -188,21 +163,29 @@ useEffect(() => {
     }
 
     if (key === 'Enter') {
-     if (!operator) return;
+      if (!operator) return;
 
-    if (operator === "+") {
-      setValue((memory + parseFloat(value)).toString());
-    } else if (operator === "−") {
-      setValue((memory - parseFloat(value)).toString());
-    } else if (operator === "*") {
-      setValue((memory * parseFloat(value)).toString());
-    } else if (operator === "/") {
-      setValue((memory / parseFloat(value)).toString());
+      if (operator === "+") {
+        setValue((memory + number).toString());
+      } else if (operator === "-") {
+        setValue((memory - number).toString());
+      } else if (operator === "*") {
+        setValue((memory * number).toString());
+      } else if (operator === "/") {
+        setValue((memory / number).toString());
+      }
+  
+      setMemory(null);
+      setOperator(null);
+      return;
     }
-    setMemory(null);
-    setOperator(null);
-    return;
-  }
+
+  console.log({memory})
+  console.log({operator})
+  console.log({number})
+  console.log({value})
+  console.log({e})
+  console.log('-----') 
   
     if ((e.code === "NumpadAdd") || (e.code === "NumpadSubtract")|| (e.code === "NumpadMultiply") || (e.code === "NumpadDivide") || (e.keyCode === 53)) {
       addDigit(key)
@@ -215,13 +198,15 @@ useEffect(() => {
       return;
     }
   }
-  
+
+
+
   document.addEventListener('keydown', handleKey)
 
   return () => document.removeEventListener('keydown', handleKey)
-
 })
 
+ 
   return (
     <Container>
       <Input>
@@ -253,4 +238,4 @@ useEffect(() => {
       </Ul>
     </Container>
   )
-} 
+}
