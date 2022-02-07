@@ -24,8 +24,8 @@ function addDigit(e) {
 
   if (e === 'AC') {
     setValue('0');
-    setMemory();
-    setOperator();
+    setMemory(null);
+    setOperator(null);
     return;
   }
 
@@ -96,28 +96,37 @@ function addDigit(e) {
         if (number === 0) {
           return
          }
-        setMemory(memory / number);
+        setMemory(memory + number);
+        setOperator('+')
+        setValue('0')
 
       } else if (operator === '-') {
         if (number === 0) {
           return
          }
-        setMemory(memory - number);  
+        setMemory(memory - number); 
+        setOperator('-')
+        setValue('0') 
       } else if (operator === '/') {
         if (number === 0) {
          return
         }
         setMemory(memory / number);
-
+        setOperator('/')
+        setValue('0')
       } else if (operator === '*') {
         if (number === 0) {
           return
          }
         setMemory(memory * number);
-
+        setOperator('*')
+        setValue('0')
       }
     } else {
       setMemory(number);
+      setOperator(e);
+      setValue('0')
+      
     }
     setOperator(e);
     setValue('0')
