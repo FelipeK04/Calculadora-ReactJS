@@ -164,7 +164,6 @@ function addDigit(e) {
 useEffect(() => {
   function handleKey(e) {
     let {key} = e;
-    let {} = e;
     let number = parseFloat(value);
 
     if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {

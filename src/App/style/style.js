@@ -28,11 +28,9 @@ export const ContainerCalc = styled.div`
   margin: 70px auto 0;
   padding: 8px;
   background: #380b42 ;
-
   border-radius: 20px;
 
 `;
-
 
 export const Display = styled.div`
     margin: 8px auto;
@@ -45,8 +43,6 @@ export const Display = styled.div`
     padding: 4px;
     border-radius: 8px;
     background: #7e57c2;
-
-
     display: flex;
     flex-direction: column;
 
@@ -70,9 +66,7 @@ export const Ul = styled.ul`
 
 export const Button = styled.li`
   height: 65px;
-
   list-style: none;
-
   border-radius: 4px;
   color: #fff;
   background-color: #a526c2;
